@@ -1,4 +1,4 @@
-# Install for Docker, Docker Compose, Minikube, Kubectl, Helm 
+# Install for AWS CLI, Docker, Docker Compose, Minikube, Kubectl, Helm 
 
 #### AWS (region us-east-1):
 
