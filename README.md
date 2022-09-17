@@ -46,3 +46,8 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 ```sh
 curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 ```
+
+#### Cloud Foundry:
+```wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list```
+
