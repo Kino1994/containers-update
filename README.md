@@ -1,6 +1,6 @@
 # Install for AWS CLI, Docker, Docker Compose, Minikube, Kubectl, Helm, Cloud Foundry
 
-#### AWS (region us-east-1):
+#### AWS:
 
 ```sh
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -13,18 +13,21 @@ aws sts get-caller-identity
 #### Docker:
 
 ```
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
+wget https://download.docker.com/linux/static/stable/x86_64/docker-25.0.3.tgz
+tar xzvf docker-25.0.3.tgz
+for file in /home/joaquin/docker/*; do filename=$(basename "$file"); [ -f "/usr/bin/$filename" ] && sudo rm "/usr/bin/$filename"; done
+sudo cp docker/* /usr/bin/
 sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
+sudo dockerd &
 ```
 
 #### Docker Compose:
 
 ```sh
 sudo rm /usr/bin/docker-compose
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.12.2/docker-compose-linux-x86_64" -o /usr/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.6/docker-compose-linux-x86_64" -o /usr/bin/docker-compose
 sudo chmod a+rx /usr/bin/docker-compose
 ```
 
