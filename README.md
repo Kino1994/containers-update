@@ -17,7 +17,7 @@ wget https://download.docker.com/linux/static/stable/x86_64/docker-26.1.4.tgz
 tar xzvf docker-26.1.4.tgz
 sudo cp docker/* /usr/bin/
 sudo nano /etc/systemd/system/docker.service
-```
+
 
 [Unit]
 Description=Docker Application Container Engine
