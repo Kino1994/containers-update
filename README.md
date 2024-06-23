@@ -13,14 +13,56 @@ aws sts get-caller-identity
 #### Docker:
 
 ```
-wget https://download.docker.com/linux/static/stable/x86_64/docker-25.0.3.tgz
-tar xzvf docker-25.0.3.tgz
-for file in /home/joaquin/docker/*; do filename=$(basename "$file"); [ -f "/usr/bin/$filename" ] && sudo rm "/usr/bin/$filename"; done
+wget https://download.docker.com/linux/static/stable/x86_64/docker-26.1.4.tgz
+tar xzvf docker-26.1.4.tgz
+sudo cp docker/* /usr/bin/
+sudo nano /etc/systemd/system/docker.service
+```
+
+> [Unit]
+> Description=Docker Application Container Engine
+> Documentation=https://docs.docker.com
+> After=network-online.target firewalld.service
+> Wants=network-online.target
+> 
+> [Service]
+> Type=notify
+> ExecStart=/usr/bin/dockerd
+> ExecReload=/bin/kill -s HUP $MAINPID
+> TimeoutSec=0
+> RestartSec=2
+> Restart=always
+> 
+> # Note that StartLimit* options were moved from "Service" to "Unit" in systemd 229.
+> # Both the old, and new location are accepted by systemd 229 and up, so using the old location
+> # to make them work for either version of systemd.
+> StartLimitBurst=3
+> 
+> # Note that StartLimitInterval was renamed to StartLimitIntervalSec in systemd 230.
+> StartLimitInterval=60s
+> 
+> # Having non-zero Limit*s causes performance problems due to accounting overhead
+> # in the kernel. We recommend using cgroups to do container-local accounting.
+> LimitNOFILE=1048576
+> LimitNPROC=1048576
+> LimitCORE=infinity
+> 
+> # Uncomment TasksMax if your systemd version supports it.
+> # Only systemd 226 and above support this version.
+> TasksMax=infinity
+> 
+> [Install]
+> WantedBy=multi-user.target
+
+```
+sudo systemctl daemon-reload
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo systemctl status docker
 sudo cp docker/* /usr/bin/
 sudo groupadd docker
 sudo usermod -aG docker $USER
-newgrp docker
-sudo dockerd &
+sudo rm -r docker*
 ```
 
 #### Docker Compose:
